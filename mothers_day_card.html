@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mother's Day | A Special Surprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400&family=Caveat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --deep-rose: #880e4f;
+            --rose-accent: #ad1457;
+            --soft-pink: #fce4ec;
+            --gold: #d4af37;
+            --cream: #fff8e1;
+            --transition-slow: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-mid: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--cream);
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, transparent, rgba(136, 14, 79, 0.05)), url('mothers_day_floral_bg.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            perspective: 1500px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Envelope Styles */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: var(--deep-rose);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: var(--transition-mid);
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
+        .envelope-wrapper.open {
+            transform: translateY(150px) rotateX(0deg);
+            cursor: default;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-rose);
+            z-index: 1;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid var(--rose-accent);
+            transform-origin: top;
+            z-index: 4;
+            transition: var(--transition-slow);
+        }
+
+        .open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 110px solid #ad1457;
+            z-index: 3;
+        }
+
+        .envelope-sides {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .envelope-sides::before,
+        .envelope-sides::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+        }
+
+        .envelope-sides::before {
+            left: 0;
+            border-left: 160px solid #9d0c48;
+        }
+
+        .envelope-sides::after {
+            right: 0;
+            border-right: 160px solid #9d0c48;
+        }
+
+        /* Open Button / Ribbon */
+        .ribbon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            transition: var(--transition-mid);
+            letter-spacing: 1px;
+            border: 2px solid white;
+        }
+
+        .open .ribbon {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        /* Letter / Card Content */
+        .card-content {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            transition: var(--transition-slow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--soft-pink);
+        }
+
+        .open .card-content {
+            transform: translateY(-240px) scale(1.1);
+            z-index: 5;
+            height: 280px;
+            width: 380px;
+            left: -30px;
+        }
+
+        .card-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--deep-rose);
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.8s ease-out 0.8s;
+        }
+
+        .open .card-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-message {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            opacity: 0;
+            transition: 0.8s ease-out 1.1s;
+        }
+
+        .open .card-message {
+            opacity: 1;
+        }
+
+        /* Narrative Dialogue Bubble */
+        .dialogue-bubble {
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--deep-rose);
+            z-index: 100;
+            white-space: nowrap;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--gold);
+        }
+
+        .dialogue-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid white;
+        }
+
+        .dialogue-bubble.show {
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* Doll Character */
+        .doll {
+            position: absolute;
+            bottom: -60px;
+            right: -80px;
+            width: 120px;
+            height: 180px;
+            z-index: 101;
+            transform: translateY(200px);
+            transition: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .doll.show {
+            transform: translateY(0);
+        }
+
+        .doll-head {
+            width: 60px;
+            height: 60px;
+            background: #ffe0bd;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            border: 2px solid #333;
+        }
+
+        .doll-hair {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 70px;
+            height: 40px;
+            background: #4e342e;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .doll-eyes::before, .doll-eyes::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .doll-eyes::before { left: 15px; }
+        .doll-eyes::after { right: 15px; }
+
+        .doll-mouth {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 10px;
+            border-bottom: 3px solid #e91e63;
+            border-radius: 50%;
+        }
+
+        .doll.talking .doll-mouth {
+            height: 12px;
+            width: 15px;
+            background: #e91e63;
+            border-radius: 50%;
+            animation: talk-anim 0.2s infinite;
+        }
+
+        @keyframes talk-anim {
+            0%, 100% { height: 5px; }
+            50% { height: 12px; }
+        }
+
+        .doll-body {
+            width: 70px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 30px 30px 10px 10px;
+            margin: -5px auto 0;
+            border: 2px solid #333;
+            position: relative;
+        }
+
+        .doll-arm-l, .doll-arm-r {
+            position: absolute;
+            top: 10px;
+            width: 20px;
+            height: 40px;
+            background: #ffe0bd;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+
+        .doll-arm-l { left: -15px; transform: rotate(30deg); }
+        .doll-arm-r { right: -15px; transform: rotate(-30deg); animation: wave 2s infinite ease-in-out; }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(-60deg); }
+        }
+
+        /* Music Toggle */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--soft-pink);
+        }
+
+        /* Photo Gallery */
+        .gallery-section {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1.2s ease-out 1.5s;
+            display: none;
+        }
+
+        .open+.gallery-section {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .photo-slot {
+            aspect-ratio: 1;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--soft-pink);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-slot:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(136, 14, 79, 0.15);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--soft-pink);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--rose-accent);
+            font-size: 0.8rem;
+            text-align: center;
+            border: 2px dashed var(--rose-accent);
+        }
+
+        .photo-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+        }
+
+        /* Overlay for Gallery scrolling */
+        body.scrollable {
+            overflow-y: auto;
+            height: auto;
+            padding-bottom: 100px;
+        }
+
+        .burst-canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .envelope-wrapper {
+                width: 280px;
+                height: 190px;
+            }
+
+            .envelope-flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-top: 100px solid var(--rose-accent);
+            }
+
+            .envelope-front {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 95px solid #ad1457;
+            }
+
+            .envelope-sides::before {
+                border-left: 140px solid #9d0c48;
+            }
+
+            .envelope-sides::after {
+                border-right: 140px solid #9d0c48;
+            }
+
+            .open .card-content {
+                width: 320px;
+                height: 260px;
+                left: -20px;
+                transform: translateY(-210px) scale(1);
+            }
+
+            .card-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container" id="main-container">
+        <div class="envelope-wrapper" id="envelope">
+            <div class="dialogue-bubble" id="dialogue">Hmm... ya tou Murtajiz ki ammi hain!</div>
+            
+            <!-- Cute Doll -->
+            <div class="doll" id="doll">
+                <div class="doll-head">
+                    <div class="doll-hair"></div>
+                    <div class="doll-eyes"></div>
+                    <div class="doll-mouth"></div>
+                </div>
+                <div class="doll-body">
+                    <div class="doll-arm-l"></div>
+                    <div class="doll-arm-r"></div>
+                </div>
+            </div>
+            <div class="envelope-back"></div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-sides"></div>
+            <div class="envelope-front"></div>
+            <div class="ribbon">Open</div>
+
+            <div class="card-content">
+                <h1 class="card-title" id="main-title">Happy Mother's Day</h1>
+                <p class="card-message" id="main-message">
+                    <strong>Nazia Aunty</strong>, you are the heart of this family.<br><br>
+                    To the one who fills our lives with love, warmth, and grace.<br>
+                    Today we celebrate the magic you bring into every day.<br><br>
+                    <strong>We love you! 💖</strong>
+                </p>
+            </div>
+            <canvas id="burst-canvas" class="burst-canvas"></canvas>
+        </div>
+
+        <audio id="bg-music" loop>
+            <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3"
+                type="audio/mpeg">
+        </audio>
+
+        <section class="gallery-section" id="gallery">
+            <h2
+                style="text-align: center; font-family: 'Playfair Display', serif; color: var(--deep-rose); margin-bottom: 30px; font-style: italic;">
+                Beautiful Memories</h2>
+            <div class="gallery-grid">
+                <div class="photo-slot">
+                    <img src="family_photo.jpg" class="photo-img" alt="Nazia Aunty and Murtajiz">
+                </div>
+                <div class="photo-slot">
+                    <div class="photo-placeholder"><span>Beautiful Memory</span><small>Nazia Aunty ❤️</small></div>
+                </div>
+                <div class="photo-slot">
+                    <div class="photo-placeholder"><span>Special Moment</span><small>Mother's Day 2026</small></div>
+                </div>
+                <div class="photo-slot">
+                    <div class="photo-placeholder"><span>Family Love</span><small>Forever Together</small></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const dialogue = document.getElementById('dialogue');
+        const doll = document.getElementById('doll');
+        const mainTitle = document.getElementById('main-title');
+        const bgMusic = document.getElementById('bg-music');
+        const bgCanvas = document.getElementById('bg-canvas');
+        const burstCanvas = document.getElementById('burst-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const burstCtx = burstCanvas.getContext('2d');
+
+        let width, height;
+        const hearts = [];
+        const petals = [];
+        const colors = ['#880e4f', '#ad1457', '#fce4ec', '#f8bbd0', '#d4af37'];
+
+        function init() {
+            resize();
+            createBackgroundElements();
+            animate();
+        }
+
+        function resize() {
+            width = bgCanvas.width = window.innerWidth;
+            height = bgCanvas.height = window.innerHeight;
+            burstCanvas.width = 600;
+            burstCanvas.height = 600;
+        }
+
+        window.addEventListener('resize', resize);
+
+        class Heart {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + 20;
+                this.size = Math.random() * 15 + 5;
+                this.speed = Math.random() * 1 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.wiggle = Math.random() * 2;
+                this.wiggleSpeed = Math.random() * 0.02;
+            }
+            draw() {
+                bgCtx.save();
+                bgCtx.globalAlpha = this.opacity;
+                bgCtx.fillStyle = colors[Math.floor(Math.random() * 3)];
+                bgCtx.beginPath();
+                const x = this.x + Math.sin(Date.now() * this.wiggleSpeed) * 20;
+                bgCtx.moveTo(x, this.y);
+                bgCtx.bezierCurveTo(x - this.size / 2, this.y - this.size / 2, x - this.size, this.y + this.size / 3, x, this.y + this.size);
+                bgCtx.bezierCurveTo(x + this.size, this.y + this.size / 3, x + this.size / 2, this.y - this.size / 2, x, this.y);
+                bgCtx.fill();
+                bgCtx.restore();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -20) this.reset();
+            }
+        }
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = -20;
+                this.size = Math.random() * 10 + 5;
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                this.opacity = Math.random() * 0.6 + 0.2;
+            }
+            draw() {
+                bgCtx.save();
+                bgCtx.translate(this.x, this.y);
+                bgCtx.rotate(this.rotation);
+                bgCtx.globalAlpha = this.opacity;
+                bgCtx.fillStyle = '#f8bbd0';
+                bgCtx.beginPath();
+                bgCtx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+                bgCtx.fill();
+                bgCtx.restore();
+            }
+            update() {
+                this.y += this.speed;
+                this.x += Math.sin(this.y / 50) * 0.5;
+                this.rotation += this.rotationSpeed;
+                if (this.y > height + 20) this.reset();
+            }
+        }
+
+        function createBackgroundElements() {
+            for (let i = 0; i < 30; i++) hearts.push(new Heart());
+            for (let i = 0; i < 40; i++) petals.push(new Petal());
+        }
+
+        function animate() {
+            bgCtx.clearRect(0, 0, width, height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            petals.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        // Particle Burst System
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const force = Math.random() * 8 + 4;
+                this.vx = Math.cos(angle) * force;
+                this.vy = Math.sin(angle) * force;
+                this.gravity = 0.15;
+                this.friction = 0.98;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                this.size = Math.random() * 8 + 4;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.isHeart = Math.random() > 0.5;
+            }
+            update() {
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                if (this.isHeart) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.bezierCurveTo(this.x - this.size / 2, this.y - this.size / 2, this.x - this.size, this.y + this.size / 3, this.x, this.y + this.size);
+                    ctx.bezierCurveTo(this.x + this.size, this.y + this.size / 3, this.x + this.size / 2, this.y - this.size / 2, this.x, this.y);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        let burstParticles = [];
+        function startBurst() {
+            for (let i = 0; i < 150; i++) {
+                burstParticles.push(new Particle(300, 300));
+            }
+            function runBurst() {
+                burstCtx.clearRect(0, 0, 600, 600);
+                burstParticles.forEach((p, i) => {
+                    p.update();
+                    p.draw(burstCtx);
+                    if (p.life <= 0) burstParticles.splice(i, 1);
+                });
+                if (burstParticles.length > 0) requestAnimationFrame(runBurst);
+            }
+            runBurst();
+        }
+
+        async function playNarrative() {
+            // Sequence for Nazia Aunty
+            await wait(800);
+            
+            // Show Doll
+            doll.classList.add('show');
+            await wait(800);
+
+            // Step 1: Identification
+            dialogue.innerText = "Hmm... ya tou Murtajiz ki ammi hain, Nazia Aunty!";
+            dialogue.classList.add('show');
+            await speak("Hmm... ya tou Murtajiz ki ammi hain, Nazia Aunty!");
+            
+            await wait(1000);
+            
+            // Step 2: Realization
+            dialogue.innerText = "Ohh haa! Aaj tou Mother's Day hai!";
+            await speak("Ohh haa! Aaj tou Mother's Day hai!");
+            
+            await wait(1000);
+            
+            // Step 3: Happy Mother's Day
+            dialogue.innerText = "Happy Mother's Day, Nazia Aunty! 💖";
+            mainTitle.innerText = "Happy Mother's Day, Nazia Aunty!";
+            
+            // Start Music and Burst
+            bgMusic.play();
+            startBurst();
+            await speak("Happy Mother's Day, Nazia Aunty!");
+            
+            await wait(3000);
+            dialogue.classList.remove('show');
+            doll.classList.remove('show');
+            document.body.classList.add('scrollable');
+            
+            // Trigger Gallery Slide-in
+            document.getElementById('gallery').style.display = 'block';
+        }
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function speak(text) {
+            return new Promise((resolve) => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = window.speechSynthesis.getVoices();
+                
+                // Try to find a premium Hindi/Urdu female voice
+                let voice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN'));
+                if (voice) utterance.voice = voice;
+                
+                utterance.pitch = 1.2;
+                utterance.rate = 0.9;
+                
+                doll.classList.add('talking');
+                
+                utterance.onend = () => {
+                    doll.classList.remove('talking');
+                    resolve();
+                };
+                
+                window.speechSynthesis.speak(utterance);
+                
+                // Fallback resolve
+                setTimeout(() => {
+                    doll.classList.remove('talking');
+                    resolve();
+                }, 5000);
+            });
+        }
+
+        // Initialize voices
+        window.speechSynthesis.getVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+
+        envelope.addEventListener('click', () => {
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+                playNarrative();
+            }
+        });
+
+        init();
+    </script>
+</body>
+
+</html>

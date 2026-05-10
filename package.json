@@ -1,0 +1,11 @@
+{
+  "name": "mothers-day",
+  "version": "1.0.0",
+  "description": "Happy Mother's Day - Special Talking Doll Surprise",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
