@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Mother's Day | Special Talking Doll Surprise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&family=Caveat:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --deep-rose: #880e4f;
@@ -20,8 +23,12 @@
             --transition-mid: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background-color: var(--cream);
             font-family: 'Montserrat', sans-serif;
@@ -66,7 +73,9 @@
             transition: transform 0.5s ease;
         }
 
-        .box-wrap:hover { transform: scale(1.05); }
+        .box-wrap:hover {
+            transform: scale(1.05);
+        }
 
         .box-body {
             position: absolute;
@@ -76,7 +85,7 @@
             height: 180px;
             background: linear-gradient(135deg, var(--deep-rose), #5e0a36);
             border-radius: 0 0 12px 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
@@ -87,7 +96,7 @@
             width: 40px;
             height: 100%;
             background: linear-gradient(to right, var(--gold), #b38f2d, var(--gold));
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .lid {
@@ -98,9 +107,9 @@
             height: 70px;
             background: linear-gradient(135deg, var(--rose-accent), var(--deep-rose));
             border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             transform-origin: top center;
-            transition: transform 1.5s cubic-bezier(.23,1,.32,1);
+            transition: transform 1.5s cubic-bezier(.23, 1, .32, 1);
             z-index: 20;
             display: flex;
             align-items: center;
@@ -112,10 +121,12 @@
             width: 240px;
             height: 30px;
             background: linear-gradient(to right, var(--gold), #b38f2d, var(--gold));
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         }
 
-        .lid.open { transform: rotateX(-160deg) translateY(-50px); }
+        .lid.open {
+            transform: rotateX(-160deg) translateY(-50px);
+        }
 
         .bow {
             position: absolute;
@@ -124,11 +135,21 @@
             transform: translateX(-50%);
             font-size: 4rem;
             z-index: 25;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
             animation: bob 3s ease-in-out infinite;
         }
 
-        @keyframes bob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
 
         /* Professional Buttons */
         .open-btn {
@@ -148,10 +169,28 @@
             animation: pulse-gold 2s infinite;
         }
 
-        @keyframes pulse-gold { 0% { box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); } 50% { box-shadow: 0 10px 50px rgba(212, 175, 55, 0.7); } 100% { box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); } }
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            }
 
-        .open-btn:hover { transform: translateY(-5px); }
-        .open-btn.gone { opacity: 0; pointer-events: none; }
+            50% {
+                box-shadow: 0 10px 50px rgba(212, 175, 55, 0.7);
+            }
+
+            100% {
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        .open-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .open-btn.gone {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         /* Overlay */
         #overlay {
@@ -161,7 +200,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.8s ease;
-            background: radial-gradient(circle at center, rgba(136, 14, 79, 0.95), rgba(0,0,0,0.98));
+            background: radial-gradient(circle at center, rgba(136, 14, 79, 0.95), rgba(0, 0, 0, 0.98));
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -169,7 +208,10 @@
             overflow-y: auto;
         }
 
-        #overlay.on { opacity: 1; pointer-events: all; }
+        #overlay.on {
+            opacity: 1;
+            pointer-events: all;
+        }
 
         .big-text {
             font-family: 'Playfair Display', serif;
@@ -182,7 +224,10 @@
             transition: 1s ease-out 0.5s;
         }
 
-        #overlay.on .big-text { opacity: 1; transform: translateY(0); }
+        #overlay.on .big-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .sub-text {
             font-family: 'Caveat', cursive;
@@ -193,7 +238,9 @@
             transition: 1s ease-out 0.8s;
         }
 
-        #overlay.on .sub-text { opacity: 1; }
+        #overlay.on .sub-text {
+            opacity: 1;
+        }
 
         /* Doll Section */
         .doll-container {
@@ -209,7 +256,7 @@
             background: white;
             padding: 20px 30px;
             border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             font-family: 'Montserrat', sans-serif;
             text-align: center;
             max-width: 350px;
@@ -219,7 +266,10 @@
             transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s;
         }
 
-        #overlay.on .speech-bubble { opacity: 1; transform: scale(1); }
+        #overlay.on .speech-bubble {
+            opacity: 1;
+            transform: scale(1);
+        }
 
         .speech-bubble::after {
             content: '';
@@ -238,23 +288,141 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
 
         /* Detailed CSS Doll */
-        .doll { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
-        .doll-head { width: 80px; height: 85px; background: #ffe0bd; border-radius: 50% 50% 45% 45%; border: 2px solid #5e3a24; position: relative; z-index: 5; }
-        .doll-hair { position: absolute; top: -10px; width: 90px; height: 50px; background: #4e342e; border-radius: 50% 50% 0 0; z-index: 6; }
-        .doll-eyes::before, .doll-eyes::after { content: ''; position: absolute; top: 35px; width: 10px; height: 10px; background: #333; border-radius: 50%; }
-        .doll-eyes::before { left: 20px; } .doll-eyes::after { right: 20px; }
-        .doll-mouth { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); width: 20px; height: 10px; border-bottom: 4px solid #e91e63; border-radius: 50%; transition: 0.1s; }
-        .talking .doll-mouth { animation: talk 0.2s infinite alternate; height: 15px; background: #e91e63; border-radius: 50%; }
-        @keyframes talk { 0% { height: 5px; } 100% { height: 15px; } }
+        .doll {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        .doll-body { width: 90px; height: 100px; background: linear-gradient(135deg, var(--rose-accent), var(--deep-rose)); border-radius: 20px 20px 10px 10px; border: 2px solid #5e3a24; margin-top: -5px; z-index: 4; position: relative; }
-        .doll-arm-l, .doll-arm-r { position: absolute; top: 10px; width: 22px; height: 50px; background: #ffe0bd; border-radius: 10px; border: 2px solid #5e3a24; transform-origin: top center; }
-        .doll-arm-l { left: -15px; transform: rotate(20deg); }
-        .doll-arm-r { right: -15px; transform: rotate(-20deg); animation: wave-doll 2s infinite ease-in-out; }
-        @keyframes wave-doll { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(-60deg); } }
+        .doll-head {
+            width: 80px;
+            height: 85px;
+            background: #ffe0bd;
+            border-radius: 50% 50% 45% 45%;
+            border: 2px solid #5e3a24;
+            position: relative;
+            z-index: 5;
+        }
+
+        .doll-hair {
+            position: absolute;
+            top: -10px;
+            width: 90px;
+            height: 50px;
+            background: #4e342e;
+            border-radius: 50% 50% 0 0;
+            z-index: 6;
+        }
+
+        .doll-eyes::before,
+        .doll-eyes::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            width: 10px;
+            height: 10px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .doll-eyes::before {
+            left: 20px;
+        }
+
+        .doll-eyes::after {
+            right: 20px;
+        }
+
+        .doll-mouth {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            border-bottom: 4px solid #e91e63;
+            border-radius: 50%;
+            transition: 0.1s;
+        }
+
+        .talking .doll-mouth {
+            animation: talk 0.2s infinite alternate;
+            height: 15px;
+            background: #e91e63;
+            border-radius: 50%;
+        }
+
+        @keyframes talk {
+            0% {
+                height: 5px;
+            }
+
+            100% {
+                height: 15px;
+            }
+        }
+
+        .doll-body {
+            width: 90px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--rose-accent), var(--deep-rose));
+            border-radius: 20px 20px 10px 10px;
+            border: 2px solid #5e3a24;
+            margin-top: -5px;
+            z-index: 4;
+            position: relative;
+        }
+
+        .doll-arm-l,
+        .doll-arm-r {
+            position: absolute;
+            top: 10px;
+            width: 22px;
+            height: 50px;
+            background: #ffe0bd;
+            border-radius: 10px;
+            border: 2px solid #5e3a24;
+            transform-origin: top center;
+        }
+
+        .doll-arm-l {
+            left: -15px;
+            transform: rotate(20deg);
+        }
+
+        .doll-arm-r {
+            right: -15px;
+            transform: rotate(-20deg);
+            animation: wave-doll 2s infinite ease-in-out;
+        }
+
+        @keyframes wave-doll {
+
+            0%,
+            100% {
+                transform: rotate(-20deg);
+            }
+
+            50% {
+                transform: rotate(-60deg);
+            }
+        }
 
         /* Photo Gallery Frame */
         .photo-gallery {
@@ -266,7 +434,10 @@
             transition: 1s ease-out 1.5s;
         }
 
-        #overlay.on .photo-gallery { opacity: 1; transform: translateY(0); }
+        #overlay.on .photo-gallery {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .photo-frame {
             width: 160px;
@@ -284,9 +455,25 @@
             transition: 0.3s;
         }
 
-        .photo-frame:hover { transform: scale(1.05) translateY(-10px); background: rgba(255, 255, 255, 0.15); }
-        .photo-frame img { width: 100%; height: 130px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; border: 1px solid var(--gold); }
-        .photo-frame span { font-size: 0.75rem; color: var(--cream); text-align: center; }
+        .photo-frame:hover {
+            transform: scale(1.05) translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--gold);
+        }
+
+        .photo-frame span {
+            font-size: 0.75rem;
+            color: var(--cream);
+            text-align: center;
+        }
 
         /* Close Button */
         .close-btn {
@@ -307,12 +494,21 @@
             transition: 0.3s;
         }
 
-        .close-btn:hover { background: var(--rose-accent); transform: rotate(90deg); }
+        .close-btn:hover {
+            background: var(--rose-accent);
+            transform: rotate(90deg);
+        }
 
         /* Particle Canvas */
-        #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 105; }
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 105;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="bg-overlay"></div>
@@ -332,7 +528,7 @@
 
     <div id="overlay">
         <button class="close-btn" onclick="closeGift()">×</button>
-        
+
         <h1 class="big-text">Happy Mother's Day</h1>
         <p class="sub-text">From Murtajiz with Love 💖</p>
 
@@ -340,7 +536,8 @@
             <div class="speech-bubble" id="bubble">
                 <p style="font-weight: 600; color: var(--deep-rose); margin-bottom: 10px;">Hello Miss Nazia! ✨</p>
                 <p style="font-size: 0.9rem; line-height: 1.5; color: #444;">
-                    Lagta hai aaj <b>Mother's Day</b> hai — toh aapko <b>Murtajiz</b> ki taraf se bahut bahut Mubarak! 🌸
+                    Lagta hai aaj <b>Mother's Day</b> hai — toh aapko <b>Murtajiz</b> ki taraf se bahut bahut Mubarak!
+                    🌸
                 </p>
                 <div id="speaking-indicator" style="margin-top: 10px; display: none;">
                     <span style="font-size: 0.7rem; color: #888;">Talking...</span>
@@ -360,8 +557,10 @@
                     </div>
                 </div>
             </div>
-            
-            <button onclick="speakAgain()" style="background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;">🔊 Hear Again</button>
+
+            <button onclick="speakAgain()"
+                style="background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;">🔊
+                Hear Again</button>
         </div>
 
         <div class="photo-gallery">
@@ -370,17 +569,22 @@
                 <span>Nazia Aunty & Murtajiz ❤️</span>
             </div>
             <div class="photo-frame">
-                <div style="width: 100%; height: 130px; background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">📸</div>
+                <div
+                    style="width: 100%; height: 130px; background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                    📸</div>
                 <span>Special Moment 🌷</span>
             </div>
             <div class="photo-frame">
-                <div style="width: 100%; height: 130px; background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">✨</div>
+                <div
+                    style="width: 100%; height: 130px; background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                    ✨</div>
                 <span>Family Love 💕</span>
             </div>
         </div>
 
         <audio id="bg-music" loop>
-            <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3" type="audio/mpeg">
+            <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3"
+                type="audio/mpeg">
         </audio>
     </div>
 
@@ -428,7 +632,7 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
                 ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
                 ctx.restore();
             }
         }
@@ -448,12 +652,12 @@
 
         function speak() {
             if (!('speechSynthesis' in window)) return;
-            
+
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(SPEECH_TEXT);
             const voices = window.speechSynthesis.getVoices();
             const preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
-            
+
             utterance.voice = preferredVoice;
             utterance.pitch = 1.2;
             utterance.rate = 0.9;
@@ -475,7 +679,7 @@
         function openGift() {
             lid.classList.add('open');
             openBtn.classList.add('gone');
-            
+
             setTimeout(() => {
                 overlay.classList.add('on');
                 bgMusic.play();
@@ -516,4 +720,5 @@
         window.speechSynthesis.getVoices();
     </script>
 </body>
+
 </html>
